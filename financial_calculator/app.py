@@ -37,6 +37,7 @@ class MainWindow(QMainWindow):
             layout.addWidget(w())
 
         widget = QWidget()
+        widget.setStyleSheet = ("QWidget {linearGrad = QLinearGradient(QPointF(100, 100), QPointF(200, 200))linearGrad.setColorAt(0, Qt.black)linearGrad.setColorAt(1, Qt.white))}")
         widget.setLayout(layout)
 
         # Appsize
@@ -45,11 +46,13 @@ class MainWindow(QMainWindow):
 
         # Title of the calculator
         title_label = QLabel("Financial Calculator")
-        layout.addWidget(title_label, 0,6)
-
+        title_label.setStyleSheet(" QLabel{ font-size: 15px; }")
+        layout.addWidget(title_label, 0,5)
+        
         Frequency_combobox = QComboBox()
         layout.addWidget(Frequency_combobox, 2,1)
         Frequency_combobox.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
+        Frequency_combobox.addItem("Select ")
         Frequency_combobox.addItem("Monthly")
         Frequency_combobox.addItem("Annually")
         Frequency_combobox.addItem("Semi-Anually")
@@ -93,13 +96,20 @@ class MainWindow(QMainWindow):
         push_calculate = QPushButton()
         layout.addWidget(push_calculate, 5,0)
         push_calculate.setText("CALCULATE")
+        push_calculate.setStyleSheet("  QPushButton:hover{color: #0000FF; font-size: 14px;}")
 
         push_reset = QPushButton("CLEAR")
+        push_reset.setStyleSheet(" QPushButton:hover{color: #FF2D00; font-size: 14px;}")
+
         layout.addWidget(push_reset, 5, 1)
 
         duration_input = QLineEdit()
         layout.addWidget(duration_input, 4,1)
-       
+
+        output_answer = QLabel()
+        layout.addWidget(output_answer, 3,5)
+        output_answer.setStyleSheet(" QLabel{background-color: white; font-color: black;}")
+
 
 
 
@@ -141,9 +151,17 @@ QPushButton {
     padding: 10px;
                   
 }
- QPushButton:hover{background-color: #FFFFFF; color: #FF2D00; font-size: 15px;
-    
-                  }
+
+
+QComboBox:items {
+    background-color: rgb(255,255,255);
+}
+                  
+
+QListView {
+    color: rgb(255,255,255);
+}
+                  
 
 
 
