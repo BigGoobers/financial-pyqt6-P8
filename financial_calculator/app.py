@@ -15,6 +15,8 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
 )
 
+from controller import get_answer
+
 
 # Subclass QMainWindow to customize your application's main window
 class MainWindow(QMainWindow):
@@ -75,17 +77,17 @@ class MainWindow(QMainWindow):
         end_label = QLabel("Output:")
         layout.addWidget(end_label, 3,4)
 
-        principle_input = QSpinBox()
-        layout.addWidget(principle_input, 1,1)
-        principle_input.setSuffix("$")
-        principle_input.setMaximum(2147483647)
+        self.principle_input = QSpinBox()
+        layout.addWidget(self.principle_input, 1,1)
+        self.principle_input.setSuffix("$")
+        self.principle_input.setMaximum(2147483647)
 
-        percentage_input = QSpinBox()
-        percentage_input.setSuffix("%")
-        percentage_input.setMaximum(100)
-        percentage_input.setMinimum(-100)
-        layout.addWidget(percentage_input, 3,1)
-        percentage_input.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
+        self.percentage_input = QSpinBox()
+        self.percentage_input.setSuffix("%")
+        self.percentage_input.setMaximum(100)
+        self.percentage_input.setMinimum(-100)
+        layout.addWidget(self.percentage_input, 3,1)
+        self.percentage_input.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Fixed)
         
         space1 = QWidget()
         layout.addWidget(space1, 0,0)
@@ -103,13 +105,52 @@ class MainWindow(QMainWindow):
 
         layout.addWidget(push_reset, 5, 1)
 
-        duration_input = QLineEdit()
-        layout.addWidget(duration_input, 4,1)
+        self.duration_input = QSpinBox()
+        layout.addWidget(self.duration_input, 4,1)
 
-        output_answer = QLabel()
+        output_answer = QLabel("")
         layout.addWidget(output_answer, 3,5)
         output_answer.setStyleSheet(" QLabel{background-color: white; font-color: black;}")
 
+       
+        
+        #Formula and calculations
+        def calculate_financial():
+            """Calculate Financial"""
+            principle = self.principle_input.value()
+            print(principle)
+
+            percentage = self.percentage_input.value()
+            print(percentage)
+
+            duration = self.duration_input.value()
+            print(duration)
+
+            compound = Frequency_combobox.currentText()
+
+            if compound == "Monthly":
+                
+            elif compound == "Semi-Annually":
+                compound = 2
+
+            elif compound == "Quarterly":
+
+            elif compound == "Annually":
+            
+
+
+            output_answer.setText(get_answer(principle, percentage, duration, compound))
+
+
+        
+        push_calculate.clicked.connect(calculate_financial)
+        layout.addWidget(output_answer, 3,5)
+        output_answer.setStyleSheet(" QLabel{background-color: white; font-color: black;}")
+
+
+        push_calculate.clicked.connect(calculate_financial)
+
+        
 
 
 
@@ -164,7 +205,7 @@ QListView {
                   
 
 
-
+                  
                   """)
 window = MainWindow()
 window.show()
